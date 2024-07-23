@@ -27,7 +27,6 @@ export class BankController {
 
   @Post()
   create(@Body() bank: Bank): Promise<Bank> {
-    console.log(bank);
     return this.bankService.create(bank);
   }
 

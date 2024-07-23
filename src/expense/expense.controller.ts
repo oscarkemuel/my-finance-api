@@ -11,6 +11,8 @@ import {
 } from '@nestjs/common';
 import { ExpenseService } from './expense.service';
 import { Expense } from './entities/expense.entity';
+import { CreateExpenseDto } from './dto/create-expense.dto';
+import { UpdateExpenseDto } from './dto/update-expense.dto';
 
 @Controller('expenses')
 export class ExpenseController {
@@ -27,12 +29,15 @@ export class ExpenseController {
   }
 
   @Post()
-  create(@Body() expense: Expense): Promise<Expense> {
+  create(@Body() expense: CreateExpenseDto): Promise<Expense> {
     return this.expenseService.create(expense);
   }
 
   @Put(':id')
-  update(@Param('id') id: number, @Body() expense: Expense): Promise<Expense> {
+  update(
+    @Param('id') id: number,
+    @Body() expense: UpdateExpenseDto,
+  ): Promise<Expense> {
     return this.expenseService.update(id, expense);
   }
 
