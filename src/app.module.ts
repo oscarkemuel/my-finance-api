@@ -5,6 +5,7 @@ import { CategoryModule } from './category/category.module';
 import { ExpenseModule } from './expense/expense.module';
 import { IncomeModule } from './income/income.module';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { BilletsModule } from './billets/billets.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -17,6 +18,7 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
     CategoryModule,
     ExpenseModule,
     IncomeModule,
+    BilletsModule,
   ],
 })
 export class AppModule implements NestModule {
