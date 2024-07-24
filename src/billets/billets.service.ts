@@ -1,26 +1,38 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBilletDto } from './dto/create-billet.dto';
 import { UpdateBilletDto } from './dto/update-billet.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Billet } from './entities/billet.entity';
 
 @Injectable()
 export class BilletsService {
+  constructor(
+    @InjectRepository(Billet)
+    private billetRepository: Repository<Billet>,
+  ) {}
+
   create(createBilletDto: CreateBilletDto) {
-    return 'This action adds a new billet';
+    const dueDate = new Date(createBilletDto.dueDate);
+
+    createBilletDto.dueDate = dueDate;
+
+    return this.billetRepository.save(createBilletDto);
   }
 
   findAll() {
-    return `This action returns all billets`;
+    return this.billetRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} billet`;
+    return this.billetRepository.findOneBy({ id });
   }
 
   update(id: number, updateBilletDto: UpdateBilletDto) {
-    return `This action updates a #${id} billet`;
+    return this.billetRepository.update(id, updateBilletDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} billet`;
+    return this.billetRepository.delete(id);
   }
 }
